@@ -1,0 +1,16 @@
+option parsing libraries
+ - https://github.com/injekt/slop
+ - https://github.com/mdub/clamp
+ - https://github.com/wycats/thor
+guide to CLI tools in ruby: http://rubylearning.com/blog/2011/01/03/how-do-i-make-a-command-line-tool-in-ruby/
+
+sources
+github repos in the standard format
+github repos in non-standard formats
+vim.org scripts section (yuck)
+
+1. lookup source
+2. fetch source into tmp
+3. install source to vim/bundle/source
+3a. check if directory exists already, if so check if we installed it (manifest)
+4. add bundle to manifest
