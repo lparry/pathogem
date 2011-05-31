@@ -1,0 +1,21 @@
+{
+  'vim-ruby': 'https://github.com/vim-ruby/vim-ruby.git',
+  'ack': 'http://github.com/mileszs/ack.vim.git',
+  'gundo': 'http://github.com/sjl/gundo.vim.git',
+  'nerdtree': 'http://github.com/scrooloose/nerdtree.git',
+  'vim-tabular': 'https://github.com/godlygeek/tabular.git',
+  'vim-cucumber': 'git://github.com/tpope/vim-cucumber.git',
+  'vim-endwise': 'https://github.com/tpope/vim-endwise.git',
+  'vim-flog': 'git@github.com:lparry/vim-flog.git',
+  'vim-fugitive': 'git://github.com/tpope/vim-fugitive.git',
+  'vim-markdown': 'http://github.com/tpope/vim-markdown.git',
+  'vim-retag': 'git://github.com/tpope/vim-ragtag.git',
+  'vim-rails': 'git://github.com/tpope/vim-rails.git',
+  'vim-repeat': 'git://github.com/tpope/vim-repeat.git',
+  'vim-reruby': 'https://github.com/notahat/vim-reruby.git',
+  'vim-ruby-block-conv': 'http://github.com/bronson/vim-ruby-block-conv.git',
+  'vim-ruby': 'https://github.com/vim-ruby/vim-ruby.git',
+  'snipmate': 'git://github.com/msanders/snipmate.vim.git',
+  'vim-surround': 'git://github.com/tpope/vim-surround.git',
+  'tComment': 'https://github.com/vim-scripts/tComment.git'
+}

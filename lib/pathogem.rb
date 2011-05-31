@@ -3,7 +3,7 @@ require 'json'
 require 'safe_shell'
 
 module Pathogem
-  MASTER_GEM_LIST = 'pathogem.sources'
+  MASTER_GEM_LIST = File.join(File.dirname(__FILE__), 'pathogem.sources')
 
   def self.install(gem_thingy)
   end
