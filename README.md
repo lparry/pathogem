@@ -7,5 +7,7 @@ Pathogem will be a tool for managing your vim plugins in combination with [Tim P
 pathogem install vim-surround
 
 pathogem uninstall vim-surround
+
 pathogem update surround #not yet
+
 pathogem update --all #not yet
