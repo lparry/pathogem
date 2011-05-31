@@ -12,12 +12,12 @@ describe Pathogem::Git do
 
   it "clones the given github url" do
     SafeShell.should_receive(:execute).with('git', 'clone', @git_url).and_return(@safe_shell_success)
-    Pathogem::Git.clone(@git_url)
+    Pathogem::Git.clone(@git_url).should be_true
   end
 
   it "clones the given github url to a specific location" do
     SafeShell.should_receive(:execute).with('git', 'clone', @git_url, 'destination').and_return(@safe_shell_success)
-    Pathogem::Git.clone(@git_url, 'destination')
+    Pathogem::Git.clone(@git_url, 'destination').should be_true
   end
 
   it "raises an error if the clone fails" do

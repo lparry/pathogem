@@ -10,6 +10,7 @@ module Pathogem
         SafeShell.execute('git', 'clone', repo)
       end
       raise CloneFailed.new unless output.succeeded?
+      true
     end
   end
 end
