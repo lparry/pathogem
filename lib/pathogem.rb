@@ -5,7 +5,6 @@ module Pathogem
   MASTER_GEM_LIST = 'pathogem.sources'
 
   def self.install(gem_thingy)
-    sources[gem_thingy]
   end
 
   def self.uninstall(gem_thingy)
@@ -18,6 +17,10 @@ module Pathogem
     <<-HELP
 Oh snap, you ran this before I got round to sorting out help. I guess you'll have to dig into the source.
     HELP
+  end
+
+  def self.gem_source(gem_name)
+    sources[gem_name]
   end
 
   private

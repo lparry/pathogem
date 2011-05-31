@@ -5,7 +5,7 @@ require 'pathogem'
 describe Pathogem, "install" do
   it "looks up gems in it's master list" do
     File.should_receive(:read).and_return('{"blah":"http://github.com/foo/bar"}')
-    Pathogem.install('blah')
+    Pathogem.gem_source('blah').should == "http://github.com/foo/bar"
   end
 
 end
