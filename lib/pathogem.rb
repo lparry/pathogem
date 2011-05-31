@@ -2,6 +2,7 @@ require 'pathogem/version'
 require 'pathogem/git'
 require 'json'
 require 'safe_shell'
+require 'fileutils'
 
 module Pathogem
   VIM_GEM_DIR = File.expand_path("~/.vim/pathogem/")
@@ -15,6 +16,8 @@ module Pathogem
   end
 
   def self.uninstall(gem_name)
+    FileUtils.rm_rf(destination(gem_name))
+    true
   end
 
   def self.update(gem_name)
@@ -35,7 +38,7 @@ Oh snap, you ran this before I got round to sorting out help. I guess you'll hav
   end
 
   private
-  
+
   def self.sources
     @sources ||= JSON.parse(File.read(MASTER_GEM_LIST))
   end
