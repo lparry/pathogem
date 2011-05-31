@@ -1,7 +1,18 @@
 require 'pathogem/version'
 require 'json'
+require 'safe_shell'
 
 module Pathogem
+  module Git
+    def self.checkout(repo, dest = nil)
+      if dest
+        SafeShell.execute('git', 'checkout', repo, dest)
+      else
+        SafeShell.execute('git', 'checkout', repo)
+      end
+    end
+
+  end
   MASTER_GEM_LIST = 'pathogem.sources'
 
   def self.install(gem_thingy)
