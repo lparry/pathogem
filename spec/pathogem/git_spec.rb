@@ -26,4 +26,11 @@ describe Pathogem::Git do
       Pathogem::Git.clone(@git_url)
     }.to raise_error
   end
+
+  it "raises an error if the destination already exists" do
+    File.should_receive(:exist?).with('dest').and_return(true)
+    expect {
+      Pathogem::Git.clone(@git_url, 'dest')
+    }.to raise_error
+  end
 end

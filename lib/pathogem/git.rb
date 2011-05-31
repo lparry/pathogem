@@ -1,12 +1,15 @@
 module Pathogem
   module Git
-    def self.clone(repo, dest = nil)
-      output = if dest
-        SafeShell.execute('git', 'clone', repo, dest)
+    class CloneFailed < RuntimeError; end
+    class DestinationAlreadyExists < RuntimeError; end
+    def self.clone(repo, destination = nil)
+      output = if destination
+        raise DestinationAlreadyExists.new if File.exist?(destination)
+        SafeShell.execute('git', 'clone', repo, destination)
       else
         SafeShell.execute('git', 'clone', repo)
       end
-      raise "somethings fucked" unless output.succeeded?
+      raise CloneFailed.new unless output.succeeded?
     end
   end
 end
