@@ -35,6 +35,7 @@ module Pathogem
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
     raise NotInfected.new('This plugin is either not installed or was not installed with pathogem') unless Manifest.installed?(plugin_name)
+    Git.update(destination(plugin_name))
   end
 
   def self.help_message

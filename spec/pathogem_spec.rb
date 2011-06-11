@@ -42,5 +42,11 @@ describe Pathogem, "install" do
       Pathogem.update "lkasjdflkjasdofjasdofjsld"
     }.to raise_error Pathogem::NotInfected
   end
+
+  it "should check if a plugin was installed with pathogem before updating" do
+    Pathogem::Manifest.stub :installed? => true
+    Pathogem::Git.should_receive(:update).with(File.expand_path('~/.vim/pathogem/gem_name'))
+    Pathogem.update "gem_name"
+  end
 end
 
