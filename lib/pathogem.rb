@@ -44,6 +44,12 @@ module Pathogem
     end
   end
 
+  def self.update_all
+    Manifest.all.each do |plugin|
+      update(plugin)
+    end
+  end
+
   def self.help_message
     <<-HELP
 Oh snap, you ran this before I got round to sorting out help. I guess you'll have to dig into the source.

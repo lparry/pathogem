@@ -5,7 +5,12 @@ require 'pathogem'
 case ARGV[0].to_s.downcase
   when 'install' then Pathogem.install(ARGV[1])
   when 'uninstall' then Pathogem.uninstall(ARGV[1])
-  when 'update' then Pathogem.update(ARGV[1])
+  when 'update' then
+    if ARGV[1] == '--all'
+      Pathogem.update_all
+    else
+      Pathogem.update(ARGV[1])
+    end
   else
     puts Pathogem.help_message
 end

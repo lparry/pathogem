@@ -49,5 +49,7 @@ describe Pathogem, "install" do
     Pathogem.update "gem_name"
   end
 
+  it "should attempt to update all plugins from the manifest"
+
 end
 
