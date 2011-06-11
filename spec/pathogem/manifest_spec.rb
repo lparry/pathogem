@@ -11,6 +11,11 @@ describe Pathogem::Manifest do
 
   it 'should write to the mainfest file' do
     Pathogem::Manifest.add("banana")
-    `cat '#{@manifest_file}'`.should include("banana")
+    `cat '#{@manifest_file}'`.strip.should == "banana"
+  end
+  it 'should not write duplicates to the mainfest file' do
+    Pathogem::Manifest.add("banana")
+    Pathogem::Manifest.add("banana")
+    `cat '#{@manifest_file}'`.strip.should == 'banana'
   end
 end
