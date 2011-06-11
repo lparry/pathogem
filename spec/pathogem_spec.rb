@@ -16,5 +16,14 @@ describe Pathogem, "install" do
       Pathogem.install(nil)
     }.to raise_error
   end
+
+  it 'raises an error if it doenst know where to find a plugin' do
+    expect {
+      Pathogem.gem_source('sdlfjlaksjdflkasjdflksdjlkfjsald')
+    }.to raise_error Pathogem::UnknownPlugin
+
+  end
+
+  end
 end
 

@@ -6,6 +6,7 @@ require 'fileutils'
 
 module Pathogem
   class NoArgumentError < RuntimeError; end
+  class UnknownPlugin < RuntimeError; end
   VIM_GEM_DIR = File.expand_path("~/.vim/pathogem/")
   MASTER_GEM_LIST = File.expand_path(File.join(File.dirname(__FILE__), '../config/pathogem.sources'))
 
@@ -40,7 +41,7 @@ Oh snap, you ran this before I got round to sorting out help. I guess you'll hav
   end
 
   def self.gem_source(gem_name)
-    sources[gem_name]
+    sources[gem_name] or raise UnknownPlugin.new("Unable to find #{gem_name} within pathogem sources")
   end
 
   private
