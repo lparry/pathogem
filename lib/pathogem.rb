@@ -30,13 +30,18 @@ module Pathogem
     raise NoArgumentError if plugin_name.nil?
     Manifest.remove(plugin_name)
     FileUtils.rm_rf(destination(plugin_name))
+    puts "Successfully uninstalled '#{plugin_name}'"
     true
   end
 
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
     raise NotInfected.new('This plugin is either not installed or was not installed with pathogem') unless Manifest.installed?(plugin_name)
-    Git.update(destination(plugin_name))
+    if Git.update(destination(plugin_name))
+      puts "Successfully updated '#{plugin_name}'"
+    else
+      puts "No updates were found for '#{plugin_name}'"
+    end
   end
 
   def self.help_message

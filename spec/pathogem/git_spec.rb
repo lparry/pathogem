@@ -39,6 +39,20 @@ describe Pathogem::Git do
     expect { Pathogem::Git.rebase_origin('/tmp/')}.to raise_error(Pathogem::Git::RebaseFailed)
   end
 
+  it 'should return true when we update and the origin has changed' do
+    Pathogem::Git.stub :is_a_git_repo? => true, :dirty? => false
+    Pathogem::Git.stub :fetch_origin => nil, :rebase_origin => nil
+    Pathogem::Git.stub :head_changed? => true
+    Pathogem::Git.update('/tmp/').should be_true
+  end
+
+  it 'should return false when we update and the origin has not changed' do
+    Pathogem::Git.stub :is_a_git_repo? => true, :dirty? => false
+    Pathogem::Git.stub :fetch_origin => nil, :rebase_origin => nil
+    Pathogem::Git.stub :head_changed? => false
+    Pathogem::Git.update('/tmp/').should be_false
+  end
+
   context 'actually reading/writing to disk' do
     before :each do
       @git_dir = '/tmp/git_repo_specs'

@@ -23,22 +23,39 @@ module Pathogem
       raise NotAGitRepo.new unless is_a_git_repo?(destination)
       raise RepoDirty.new if dirty?(destination)
       fetch_origin(destination)
-      rebase_origin(destination)
+      if head_changed?(destination)
+        rebase_origin(destination)
+        true
+      else
+        false
+      end
     end
 
-    def self.rebase_origin(destination, branch_name = 'master')
+    def self.cd(directory)
       old_directory = Dir.getwd
-      Dir.chdir(destination)
-      unless SafeShell.execute?('git', 'rebase', '-p', "origin/#{branch_name}")
-        SafeShell.execute?('git', 'rebase', '--abort')
-        raise RebaseFailed.new "failed to rebase #{destination} onto origin/#{branch_name}, aborted... plzfixme?"
-      end
+      Dir.chdir(directory)
+      yield
     ensure
       Dir.chdir(old_directory)
     end
 
+    def self.rebase_origin(destination, branch_name = 'master')
+      cd(destination) do
+        unless SafeShell.execute?('git', 'rebase', '-p', "origin/#{branch_name}")
+          SafeShell.execute?('git', 'rebase', '--abort')
+          raise RebaseFailed.new "failed to rebase #{destination} onto origin/#{branch_name}, aborted... plzfixme?"
+        end
+      end
+    end
+
     def self.fetch_origin(destination)
       SafeShell.execute?('git', 'fetch', 'origin')
+    end
+
+    def self.head_changed?(destination)
+      cd (destination) do
+        SafeShell.execute("git log HEAD..origin/master | grep '^commit'|wc -l").to_i != 0
+      end
     end
 
     def self.dirty?(destination)
