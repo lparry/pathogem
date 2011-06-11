@@ -25,6 +25,7 @@ module Pathogem
   end
 
   def self.uninstall(gem_name)
+    Manifest.remove(gem_name)
     FileUtils.rm_rf(destination(gem_name))
     true
   end

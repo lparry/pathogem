@@ -30,5 +30,12 @@ describe Pathogem, "install" do
     Pathogem::Git.should_receive(:clone).with('gem_name', File.expand_path("~/.vim/pathogem/gem_name"))
     Pathogem.install 'gem_name'
   end
+
+  it "clones the git repo and adds the gem to the manifest" do
+    Pathogem.stub :gem_source => 'gem_name'
+    Pathogem::Manifest.should_receive(:remove).with('gem_name')
+    FileUtils.stub :rm_rf => true
+    Pathogem.uninstall 'gem_name'
+  end
 end
 
