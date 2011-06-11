@@ -1,5 +1,6 @@
 require 'pathogem/version'
 require 'pathogem/git'
+require 'pathogem/manifest'
 require 'json'
 require 'safe_shell'
 require 'fileutils'
@@ -17,6 +18,7 @@ module Pathogem
   def self.install(gem_name)
     raise NoArgumentError if gem_name.nil?
     Git.clone(gem_source(gem_name), destination(gem_name))
+    Manifest.add(gem_name)
   rescue Git::DestinationAlreadyExists => e
     puts "'#{gem_name}' already appears to be installed, perhaps you'd like to 'pathogem update #{gem_name}'"
     false

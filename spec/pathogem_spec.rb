@@ -21,9 +21,14 @@ describe Pathogem, "install" do
     expect {
       Pathogem.gem_source('sdlfjlaksjdflkasjdflksdjlkfjsald')
     }.to raise_error Pathogem::UnknownPlugin
-
+  
   end
 
+  it "clones the git repo and adds the gem to the manifest" do
+    Pathogem.stub :gem_source => 'gem_name'
+    Pathogem::Manifest.should_receive(:add).with('gem_name')
+    Pathogem::Git.should_receive(:clone).with('gem_name', File.expand_path("~/.vim/pathogem/gem_name"))
+    Pathogem.install 'gem_name'
   end
 end
 
