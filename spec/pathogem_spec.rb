@@ -36,5 +36,11 @@ describe Pathogem, "install" do
     FileUtils.stub :rm_rf => true
     Pathogem.uninstall 'plugin_name'
   end
+
+  it "should check if a plugin was installed with pathogem before updating" do
+    expect {
+      Pathogem.update "lkasjdflkjasdofjasdofjsld"
+    }.to raise_error Pathogem::NotInfected
+  end
 end
 

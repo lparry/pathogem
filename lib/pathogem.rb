@@ -8,6 +8,7 @@ require 'fileutils'
 module Pathogem
   class NoArgumentError < RuntimeError; end
   class UnknownPlugin < RuntimeError; end
+  class NotInfected < RuntimeError; end
   VIM_PLUGIN_DIR = File.expand_path("~/.vim/pathogem/")
   MASTER_PLUGIN_LIST = File.expand_path(File.join(File.dirname(__FILE__), '../config/pathogem.sources'))
 
@@ -33,6 +34,7 @@ module Pathogem
 
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
+    raise NotInfected.new('This plugin is either not installed or was not installed with pathogem') unless Manifest.installed?(plugin_name)
   end
 
   def self.help_message
