@@ -22,15 +22,19 @@ module Pathogem
     def self.update(destination)
       raise NotAGitRepo.new unless is_a_git_repo?(destination)
       raise RepoDirty.new if dirty?(destination)
-      fetch_origin
-      rebase_origin
+      fetch_origin(destination)
+      rebase_origin(destination)
     end
 
     def self.rebase_origin(destination, branch_name = 'master')
+      old_directory = Dir.getwd
+      Dir.chdir(destination)
       unless SafeShell.execute?('git', 'rebase', '-p', "origin/#{branch_name}")
         SafeShell.execute?('git', 'rebase', '--abort')
         raise RebaseFailed.new "failed to rebase #{destination} onto origin/#{branch_name}, aborted... plzfixme?"
       end
+    ensure
+      Dir.chdir(old_directory)
     end
 
     def self.fetch_origin(destination)
@@ -38,7 +42,7 @@ module Pathogem
     end
 
     def self.dirty?(destination)
-      `cd #{destination} && git status -s 2> /dev/null`.length != 0
+      `cd '#{destination}' && git status -s 2> /dev/null`.length != 0
     end
 
     def self.is_a_git_repo?(destination)

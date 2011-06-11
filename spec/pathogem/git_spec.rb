@@ -36,7 +36,7 @@ describe Pathogem::Git do
 
   it 'raises an error when rebasing fails' do
     SafeShell.stub :execute? => false
-    expect { Pathogem::Git.rebase_origin('/tmp/blah/')}.to raise_error(Pathogem::Git::RebaseFailed)
+    expect { Pathogem::Git.rebase_origin('/tmp/')}.to raise_error(Pathogem::Git::RebaseFailed)
   end
 
   context 'actually reading/writing to disk' do
