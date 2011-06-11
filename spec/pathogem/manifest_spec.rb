@@ -29,4 +29,10 @@ describe Pathogem::Manifest do
 
     `cat '#{@manifest_file}'`.strip.should == "banana\norange"
   end
+
+  it 'should not raise errors if the file is already not in the manifest' do
+    expect {
+      Pathogem::Manifest.remove("apple")
+    }.to_not raise_error
+  end
 end
