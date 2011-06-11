@@ -13,9 +13,20 @@ describe Pathogem::Manifest do
     Pathogem::Manifest.add("banana")
     `cat '#{@manifest_file}'`.strip.should == "banana"
   end
+
   it 'should not write duplicates to the mainfest file' do
     Pathogem::Manifest.add("banana")
     Pathogem::Manifest.add("banana")
     `cat '#{@manifest_file}'`.strip.should == 'banana'
+  end
+
+  it 'should remove files from the manifest' do
+    Pathogem::Manifest.add("banana")
+    Pathogem::Manifest.add("apple")
+    Pathogem::Manifest.add("orange")
+
+    Pathogem::Manifest.remove("apple")
+
+    `cat '#{@manifest_file}'`.strip.should == "banana\norange"
   end
 end
