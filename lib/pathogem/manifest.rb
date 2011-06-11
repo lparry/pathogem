@@ -12,6 +12,8 @@ module Pathogem
       write_manifest(manifest)
     end
 
+    private
+
     def self.read_manifest
       File.exist?(Pathogem.manifest_file) ? File.read(Pathogem.manifest_file).split("\n") : []
     end
