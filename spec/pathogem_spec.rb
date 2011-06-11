@@ -44,9 +44,10 @@ describe Pathogem, "install" do
   end
 
   it "should check if a plugin was installed with pathogem before updating" do
-    Pathogem::Manifest.stub :installed? => true
+    Pathogem::Manifest.should_receive(:installed?).and_return(true)
     Pathogem::Git.should_receive(:update).with(File.expand_path('~/.vim/pathogem/gem_name'))
     Pathogem.update "gem_name"
   end
+
 end
 
