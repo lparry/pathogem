@@ -16,6 +16,11 @@ module Pathogem
       true
     end
 
+
+    def self.dirty?(destination)
+      `cd #{destination} && git status -s 2> /dev/null`.length != 0
+    end
+
     def self.is_a_git_repo?(destination)
       File.directory?(File.join(destination, ".git"))
     end

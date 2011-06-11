@@ -46,5 +46,12 @@ describe Pathogem::Git do
       Pathogem::Git.is_a_git_repo?(@git_dir).should be_true
       Pathogem::Git.is_a_git_repo?('/').should be_false
     end
+
+    it 'should be know if a repo is dirty' do
+      Pathogem::Git.dirty?(@git_dir).should be_false
+      `touch '#{File.join(@git_dir, "blah-di-dah.txt")}'`
+      `git add '#{File.join(@git_dir, "blah-di-dah.txt")}'`
+      Pathogem::Git.dirty?(@git_dir).should be_true
+    end
   end
 end
