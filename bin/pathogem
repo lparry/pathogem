@@ -2,10 +2,10 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
 require 'pathogem'
 
-case ARGV[0].downcase
-when 'install' then Pathogem.install(ARGV[1])
-when 'uninstall' then Pathogem.uninstall(ARGV[1])
-when 'update' then Pathogem.update(ARGV[1])
-else
-  puts Pathogem.help_message
+case ARGV[0].to_s.downcase
+  when 'install' then Pathogem.install(ARGV[1])
+  when 'uninstall' then Pathogem.uninstall(ARGV[1])
+  when 'update' then Pathogem.update(ARGV[1])
+  else
+    puts Pathogem.help_message
 end

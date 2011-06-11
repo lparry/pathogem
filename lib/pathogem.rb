@@ -5,10 +5,12 @@ require 'safe_shell'
 require 'fileutils'
 
 module Pathogem
+  class NoArgumentError < RuntimeError; end
   VIM_GEM_DIR = File.expand_path("~/.vim/pathogem/")
   MASTER_GEM_LIST = File.expand_path(File.join(File.dirname(__FILE__), '../pathogem.sources'))
 
   def self.install(gem_name)
+    raise NoArgumentError if gem_name.nil?
     Git.clone(gem_source(gem_name), destination(gem_name))
   rescue Git::DestinationAlreadyExists => e
     puts "'#{gem_name}' already appears to be installed, perhaps you'd like to 'pathogem update #{gem_name}'"
