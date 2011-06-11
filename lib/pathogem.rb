@@ -20,6 +20,7 @@ module Pathogem
     raise NoArgumentError if plugin_name.nil?
     Git.clone(plugin_source(plugin_name), destination(plugin_name))
     Manifest.add(plugin_name)
+    puts "Successfully installed '#{plugin_name}'"
   rescue Git::DestinationAlreadyExists => e
     puts "'#{plugin_name}' already appears to be installed, perhaps you'd like to 'pathogem update #{plugin_name}'"
     false
