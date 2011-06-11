@@ -25,12 +25,14 @@ module Pathogem
   end
 
   def self.uninstall(plugin_name)
+    raise NoArgumentError if plugin_name.nil?
     Manifest.remove(plugin_name)
     FileUtils.rm_rf(destination(plugin_name))
     true
   end
 
   def self.update(plugin_name)
+    raise NoArgumentError if plugin_name.nil?
   end
 
   def self.help_message

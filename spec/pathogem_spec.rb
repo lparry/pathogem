@@ -21,7 +21,6 @@ describe Pathogem, "install" do
     expect {
       Pathogem.plugin_source('sdlfjlaksjdflkasjdflksdjlkfjsald')
     }.to raise_error Pathogem::UnknownPlugin
-  
   end
 
   it "clones the git repo and adds the plugin to the manifest" do
