@@ -15,5 +15,9 @@ module Pathogem
       raise CloneFailed.new unless output.succeeded?
       true
     end
+
+    def self.is_a_git_repo?(destination)
+      File.directory?(File.join(destination, ".git"))
+    end
   end
 end

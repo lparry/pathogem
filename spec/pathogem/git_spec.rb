@@ -33,4 +33,18 @@ describe Pathogem::Git do
       Pathogem::Git.clone(@git_url, 'dest')
     }.to raise_error
   end
+
+  context 'actually reading/writing to disk' do
+    before :each do
+      @git_dir = '/tmp/git_repo_specs'
+      `rm -rf '#{@git_dir}'`
+      `mkdir -p '#{@git_dir}'`
+      `git init '#{@git_dir}'`
+    end
+
+    it 'should check for a .git directory to detemine if a folder is a git repo' do
+      Pathogem::Git.is_a_git_repo?(@git_dir).should be_true
+      Pathogem::Git.is_a_git_repo?('/').should be_false
+    end
+  end
 end
