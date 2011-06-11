@@ -9,6 +9,10 @@ module Pathogem
   VIM_GEM_DIR = File.expand_path("~/.vim/pathogem/")
   MASTER_GEM_LIST = File.expand_path(File.join(File.dirname(__FILE__), '../config/pathogem.sources'))
 
+  def self.manifest_file
+    File.expand_path("~/.pathogem")
+  end
+
   def self.install(gem_name)
     raise NoArgumentError if gem_name.nil?
     Git.clone(gem_source(gem_name), destination(gem_name))
