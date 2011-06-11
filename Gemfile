@@ -8,5 +8,6 @@ group :test do
   gem "rspec-mocks"
   gem "rake"
   gem "guard-rspec"
+  gem "growl"
 end
 gemspec
