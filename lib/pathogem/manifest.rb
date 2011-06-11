@@ -1,18 +1,18 @@
 module Pathogem
   class Manifest
-    def self.add(gem)
+    def self.add(plugin)
       manifest = read_manifest
-      manifest << gem
+      manifest << plugin
       write_manifest(manifest)
     end
 
-    def self.installed?(gem)
-      read_manifest.include? gem
+    def self.installed?(plugin)
+      read_manifest.include? plugin
     end
 
-    def self.remove(gem)
+    def self.remove(plugin)
       manifest = read_manifest
-      manifest.delete(gem)
+      manifest.delete(plugin)
       write_manifest(manifest)
     end
 

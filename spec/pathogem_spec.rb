@@ -6,9 +6,9 @@ describe Pathogem, "install" do
     @git_url = 'http://github.com/foo/bar'
   end
 
-  it "looks up gems in it's master list" do
+  it "looks up plugins in it's master list" do
     File.should_receive(:read).and_return(%Q({"blah":"#{@git_url}"}))
-    Pathogem.gem_source('blah').should == "http://github.com/foo/bar"
+    Pathogem.plugin_source('blah').should == "http://github.com/foo/bar"
   end
 
   it 'complains if it doesnt get an argument' do
@@ -19,23 +19,23 @@ describe Pathogem, "install" do
 
   it 'raises an error if it doenst know where to find a plugin' do
     expect {
-      Pathogem.gem_source('sdlfjlaksjdflkasjdflksdjlkfjsald')
+      Pathogem.plugin_source('sdlfjlaksjdflkasjdflksdjlkfjsald')
     }.to raise_error Pathogem::UnknownPlugin
   
   end
 
-  it "clones the git repo and adds the gem to the manifest" do
-    Pathogem.stub :gem_source => 'gem_name'
-    Pathogem::Manifest.should_receive(:add).with('gem_name')
-    Pathogem::Git.should_receive(:clone).with('gem_name', File.expand_path("~/.vim/pathogem/gem_name"))
-    Pathogem.install 'gem_name'
+  it "clones the git repo and adds the plugin to the manifest" do
+    Pathogem.stub :plugin_source => 'plugin_name'
+    Pathogem::Manifest.should_receive(:add).with('plugin_name')
+    Pathogem::Git.should_receive(:clone).with('plugin_name', File.expand_path("~/.vim/pathogem/plugin_name"))
+    Pathogem.install 'plugin_name'
   end
 
-  it "clones the git repo and adds the gem to the manifest" do
-    Pathogem.stub :gem_source => 'gem_name'
-    Pathogem::Manifest.should_receive(:remove).with('gem_name')
+  it "clones the git repo and adds the plugin to the manifest" do
+    Pathogem.stub :plugin_source => 'plugin_name'
+    Pathogem::Manifest.should_receive(:remove).with('plugin_name')
     FileUtils.stub :rm_rf => true
-    Pathogem.uninstall 'gem_name'
+    Pathogem.uninstall 'plugin_name'
   end
 end
 
