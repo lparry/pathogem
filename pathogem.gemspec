@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Pathogem::VERSION
   s.authors     = ["Lucas Parry"]
   s.email       = ["lucas@envato.com"]
-  s.homepage    = ""
-  s.summary     = %q{install vim plugins with ease}
-  s.description = %q{install vim plugins with ease}
+  s.homepage    = "http://github.com/lparry/pathogem"
+  s.summary     = %q{install vim plugins with ease.}
+  s.description = %q{A manager for installing vim plugins cleanly into pathogen directories with ease.}
 
   s.rubyforge_project = "pathogem"
 
