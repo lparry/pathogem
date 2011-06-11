@@ -6,6 +6,10 @@ module Pathogem
       write_manifest(manifest)
     end
 
+    def self.installed?(gem)
+      read_manifest.include? gem
+    end
+
     def self.remove(gem)
       manifest = read_manifest
       manifest.delete(gem)

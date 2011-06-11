@@ -35,4 +35,10 @@ describe Pathogem::Manifest do
       Pathogem::Manifest.remove("apple")
     }.to_not raise_error
   end
+
+  it 'should know whether or not pathogem was used to install the plugin' do
+    Pathogem::Manifest.installed?("redcar").should be_false
+    Pathogem::Manifest.add("redcar")
+    Pathogem::Manifest.installed?("redcar").should be_true
+  end
 end
