@@ -38,6 +38,8 @@ module Pathogem
     else
       puts "No updates were found for '#{plugin_name}'"
     end
+  rescue Git::RepoDirty => e
+    puts "Your copy of plugin_name appears to have local modifications. Please commit or discard them and try again."
   end
 
   # Remove a plugin only if we installed using pathogem
