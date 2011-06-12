@@ -5,6 +5,8 @@ require 'pathogem'
 case ARGV[0].to_s.downcase
   when 'install' then Pathogem.install(ARGV[1])
   when 'uninstall' then Pathogem.uninstall(ARGV[1])
+  when 'list' then Pathogem.list
+  when 'search' then Pathogem.search
   when 'update' then
     if ARGV[1] == '--all'
       Pathogem.update_all

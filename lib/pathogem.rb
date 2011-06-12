@@ -45,6 +45,14 @@ module Pathogem
     end
   end
 
+  def self.list
+    puts Manifest.all.sort.unshift("Plugins installed through #{NAME}:").join("\n - ")
+  end
+
+  def self.search
+    puts sources.keys.sort.unshift("Plugins available through #{NAME}:").join("\n - ")
+  end
+
   def self.update_all
     Manifest.all.each do |plugin|
       update(plugin)
