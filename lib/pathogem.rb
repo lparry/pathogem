@@ -9,11 +9,12 @@ module Pathogem
   class NoArgumentError < RuntimeError; end
   class UnknownPlugin < RuntimeError; end
   class NotInfected < RuntimeError; end
-  VIM_PLUGIN_DIR = File.expand_path("~/.vim/pathogem/")
-  MASTER_PLUGIN_LIST = File.expand_path(File.join(File.dirname(__FILE__), '../config/pathogem.sources'))
+  VIM_PLUGIN_DIR = File.expand_path("~/.vim/bundle/")
+  NAME = 'pathogem'
+  MASTER_PLUGIN_LIST = File.expand_path(File.join(File.dirname(__FILE__), "../config/#{NAME}.sources"))
 
   def self.manifest_file
-    File.expand_path("~/.pathogem")
+    File.expand_path("~/.#{NAME}")
   end
 
   def self.install(plugin_name)
@@ -22,7 +23,7 @@ module Pathogem
     Manifest.add(plugin_name)
     puts "Successfully installed '#{plugin_name}'"
   rescue Git::DestinationAlreadyExists => e
-    puts "'#{plugin_name}' already appears to be installed, perhaps you'd like to 'pathogem update #{plugin_name}'"
+    puts "'#{plugin_name}' already appears to be installed, perhaps you'd like to '#{NAME} update #{plugin_name}'"
     false
   end
 
@@ -36,7 +37,7 @@ module Pathogem
 
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
-    raise NotInfected.new('This plugin is either not installed or was not installed with pathogem') unless Manifest.installed?(plugin_name)
+    raise NotInfected.new("This plugin is either not installed or was not installed with #{NAME}") unless Manifest.installed?(plugin_name)
     if Git.update(destination(plugin_name))
       puts "Successfully updated '#{plugin_name}'"
     else
@@ -61,7 +62,7 @@ Oh snap, you ran this before I got round to sorting out help. I guess you'll hav
   end
 
   def self.plugin_source(plugin_name)
-    sources[plugin_name] or raise UnknownPlugin.new("Unable to find #{plugin_name} within pathogem sources")
+    sources[plugin_name] or raise UnknownPlugin.new("Unable to find #{plugin_name} within #{NAME} sources")
   end
 
   private
