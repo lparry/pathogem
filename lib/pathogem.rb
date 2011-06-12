@@ -32,14 +32,18 @@ module Pathogem
   # Update a plugin that we installed
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
-    raise NotInfected.new("This plugin is either not installed or was not installed with #{NAME}") unless Manifest.installed?(plugin_name)
+    raise NotInfected unless Manifest.installed?(plugin_name)
     if Git.update(destination(plugin_name))
       puts "Successfully updated '#{plugin_name}'"
     else
       puts "No updates were found for '#{plugin_name}'"
     end
+  rescue Pathogem::Git::NotAGitRepo => e
+    puts "'#{plugin_name}' does not appear to be a git repository."
+  rescue NotInfected => e
+    puts "The '#{plugin_name}' plugin is either not installed or was not installed with #{NAME}"
   rescue Git::RepoDirty => e
-    puts "Your copy of plugin_name appears to have local modifications. Please commit or discard them and try again."
+    puts "Your copy of #{plugin_name} appears to have local modifications. Please commit or discard them and try again."
   end
 
   # Remove a plugin only if we installed using pathogem
