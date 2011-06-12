@@ -1,6 +1,7 @@
 require 'pathogem/version'
 require 'pathogem/git'
 require 'pathogem/manifest'
+require 'pathogem/help'
 require 'json'
 require 'safe_shell'
 require 'fileutils'
@@ -67,18 +68,6 @@ module Pathogem
     Manifest.all.each do |plugin|
       update(plugin)
     end
-  end
-
-  def self.help_message
-    <<-HELP
-Oh snap, you ran this before I got round to sorting out help. I guess you'll have to dig into the source. Or you could try one of the following
-  pathogem install plugin
-  pathogem update plugin
-  pathogem update --all
-  pathogem uninstall plugin
-  pathogem list
-  pathogem search
-    HELP
   end
 
   def self.destination(plugin_name)

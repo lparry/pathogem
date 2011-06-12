@@ -14,5 +14,5 @@ case ARGV[0].to_s.downcase
       Pathogem.update(ARGV[1])
     end
   else
-    puts Pathogem.help_message
+    puts Pathogem::Help.usage
 end
