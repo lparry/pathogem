@@ -26,7 +26,7 @@ describe Pathogem, "install" do
   it "clones the git repo and adds the plugin to the manifest" do
     Pathogem.stub :plugin_source => 'plugin_name'
     Pathogem::Manifest.should_receive(:add).with('plugin_name')
-    Pathogem::Git.should_receive(:clone).with('plugin_name', File.expand_path("~/.vim/pathogem/plugin_name"))
+    Pathogem::Git.should_receive(:clone).with('plugin_name', File.expand_path("~/.vim/bundle/plugin_name"))
     Pathogem.install 'plugin_name'
   end
 
@@ -45,8 +45,8 @@ describe Pathogem, "install" do
 
   it "should check if a plugin was installed with pathogem before updating" do
     Pathogem::Manifest.should_receive(:installed?).and_return(true)
-    Pathogem::Git.should_receive(:update).with(File.expand_path('~/.vim/pathogem/gem_name'))
-    Pathogem.update "gem_name"
+    Pathogem::Git.should_receive(:update).with(File.expand_path('~/.vim/bundle/plugin_name'))
+    Pathogem.update "plugin_name"
   end
 
   it "should attempt to update all plugins from the manifest"
