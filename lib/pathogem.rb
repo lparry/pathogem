@@ -14,9 +14,10 @@ module Pathogem
   MASTER_PLUGIN_LIST = File.expand_path(File.join(File.dirname(__FILE__), "../config/#{NAME}.sources"))
 
   def self.manifest_file
-    File.expand_path("~/.#{NAME}")
+    File.join(VIM_PLUGIN_DIR, "~/.#{NAME}")
   end
 
+  # Install a plugin
   def self.install(plugin_name)
     raise NoArgumentError if plugin_name.nil?
     Git.clone(plugin_source(plugin_name), destination(plugin_name))
@@ -27,14 +28,7 @@ module Pathogem
     false
   end
 
-  def self.uninstall(plugin_name)
-    raise NoArgumentError if plugin_name.nil?
-    Manifest.remove(plugin_name)
-    FileUtils.rm_rf(destination(plugin_name))
-    puts "Successfully uninstalled '#{plugin_name}'"
-    true
-  end
-
+  # Update a plugin that we installed
   def self.update(plugin_name)
     raise NoArgumentError if plugin_name.nil?
     raise NotInfected.new("This plugin is either not installed or was not installed with #{NAME}") unless Manifest.installed?(plugin_name)
@@ -45,10 +39,26 @@ module Pathogem
     end
   end
 
+  # Remove a plugin only if we installed using pathogem
+  def self.uninstall(plugin_name)
+    raise NoArgumentError if plugin_name.nil?
+    Manifest.remove(plugin_name)
+    nuke(plugin_name)
+  end
+
+  # Remove a plugin regardless of how it got installled
+  def self.nuke(plugin_name)
+    FileUtils.rm_rf(destination(plugin_name))
+    puts "Successfully uninstalled '#{plugin_name}'"
+    true
+  end
+
+  # List out all of the plugins installed on this machines
   def self.list
     puts Manifest.all.sort.unshift("Plugins installed through #{NAME}:").join("\n - ")
   end
 
+  # List out all of the plugins that we know how to install
   def self.search
     puts sources.keys.sort.unshift("Plugins available through #{NAME}:").join("\n - ")
   end
