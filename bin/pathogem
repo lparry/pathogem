@@ -7,6 +7,7 @@ case ARGV[0].to_s.downcase
   when 'uninstall' then Pathogem.uninstall(ARGV[1])
   when 'list' then Pathogem.list
   when 'search' then Pathogem.search
+  when 'nuke' then Pathogem.nuke(ARGV[1])
   when 'update' then
     if ARGV[1] == '--all'
       Pathogem.update_all

@@ -15,7 +15,7 @@ module Pathogem
   MASTER_PLUGIN_LIST = File.expand_path(File.join(File.dirname(__FILE__), "../config/#{NAME}.sources"))
 
   def self.manifest_file
-    File.join(VIM_PLUGIN_DIR, "~/.#{NAME}")
+    File.join(VIM_PLUGIN_DIR, ".#{NAME}")
   end
 
   # Install a plugin
